@@ -131,24 +131,9 @@ const Hero = () => (
           transition={{ duration: 0.85, ease: [0.22, 0.61, 0.36, 1], delay: 0.2 }}
           className="lg:col-span-6 relative"
         >
-          {/* Decorative outer card frame */}
           <div className="relative">
             <div className="absolute -inset-3 -z-10 rounded-[18px] bg-gradient-to-br from-navy/[0.04] via-medblue/[0.04] to-transparent" />
             <SimHero />
-            {/* Floating mini badge */}
-            <div className="hidden sm:flex absolute bottom-3 left-6 items-center gap-2.5 bg-white border border-line rounded-full pl-2 pr-4 py-2 shadow-card">
-              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-medblue/10 text-medblue">
-                <IconBeam className="w-4 h-4" />
-              </span>
-              <div className="leading-tight">
-                <div className="text-[11px] font-semibold text-navy">Exam-Based Criteria</div>
-                <div className="text-[10.5px] text-slate-500">Centering · Collimation · Technique</div>
-              </div>
-            </div>
-            <div className="hidden md:flex absolute -bottom-3 -right-3 items-center gap-2 bg-navy text-white rounded-full pl-3 pr-3.5 py-2 shadow-panel">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-300" />
-              <span className="text-[10.5px] font-mono tracking-wider">UNITY 6 · URP</span>
-            </div>
           </div>
         </fmMotion.div>
       </div>
