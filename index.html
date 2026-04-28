@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rad Mastery — Precision 3D Radiography Training</title>
+<meta name="description" content="Rad Mastery is an educational 3D radiography simulator for tube positioning, patient setup, collimation, and exposure practice. Built for radiography education." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: { DEFAULT: '#002147', 900: '#001734', 800: '#002147', 700: '#0a2d5a' },
+          medblue: { DEFAULT: '#0056b3', 600: '#0056b3', 500: '#1e6fc7', 400: '#3a86db' },
+          slate2: { 500: '#64748b', 100: '#f1f5f9', 200: '#e2e8f0' },
+          soft: '#f8fafc',
+          line: '#e2e8f0',
+        },
+        fontFamily: {
+          sans: ['Inter', 'Montserrat', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+        boxShadow: {
+          card: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
+          cardHover: '0 12px 32px -12px rgba(0,33,71,0.18), 0 4px 10px -4px rgba(0,33,71,0.08)',
+          panel: '0 24px 60px -24px rgba(0,33,71,0.35), 0 8px 24px -12px rgba(0,33,71,0.18)',
+        },
+      }
+    }
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color: #0f172a; background: #ffffff; }
+
+  /* Tighter heading tracking for institutional feel */
+  .h-display { letter-spacing: -0.025em; }
+  .h-tight { letter-spacing: -0.015em; }
+
+  /* Section dividers */
+  .rule { background: linear-gradient(90deg, transparent 0%, #e2e8f0 12%, #e2e8f0 88%, transparent 100%); height: 1px; }
+
+  /* CTA pulse — restrained */
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 86, 179, 0.32), 0 6px 16px -6px rgba(0,33,71,0.35); }
+    50% { box-shadow: 0 0 0 10px rgba(0, 86, 179, 0.0), 0 6px 16px -6px rgba(0,33,71,0.35); }
+  }
+  .pulse-cta { animation: ctaPulse 2.6s ease-out infinite; }
+
+  /* Simulator preview styling */
+  .sim-frame {
+    background: linear-gradient(180deg, #021a3a 0%, #021229 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .sim-grid {
+    background-image:
+      linear-gradient(rgba(58, 134, 219, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58, 134, 219, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .sim-grid-fine {
+    background-image:
+      linear-gradient(rgba(58, 134, 219, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58, 134, 219, 0.05) 1px, transparent 1px);
+    background-size: 12px 12px;
+  }
+  .panel-divider { border-color: rgba(255,255,255,0.06); }
+
+  /* For accessibility — focus rings */
+  a:focus-visible, button:focus-visible { outline: 2px solid #0056b3; outline-offset: 2px; border-radius: 6px; }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-cta { animation: none; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* Hide scrollbar inside sim panels */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+
+</head>
+<body class="bg-white text-slate-900">
+  <div id="root"></div>
+
+  <script type="text/babel" src="src/icons.jsx"></script>
+  <script type="text/babel" src="src/sim-hero.jsx"></script>
+  <script type="text/babel" src="src/sim-large.jsx"></script>
+  <script type="text/babel" src="src/sections.jsx"></script>
+  <script type="text/babel" src="src/app.jsx"></script>
+</body>
+</html>
