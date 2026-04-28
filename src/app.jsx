@@ -7,6 +7,31 @@ const NAV_LINKS = [
   { label: 'Contact', href: '#contact' },
 ];
 
+const MobileMenuContents = ({ handleClick }) => (
+  <div className="px-5 sm:px-8 py-4">
+    <nav className="flex flex-col" aria-label="Mobile">
+      {NAV_LINKS.map((l) => (
+        <a
+          key={l.href}
+          href={l.href}
+          onClick={handleClick}
+          className="py-3 text-[15px] font-medium text-navy border-b border-line/70 last:border-0"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        onClick={handleClick}
+        className="mt-4 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-md bg-navy text-white text-[14px] font-semibold"
+      >
+        Request Pilot Access
+        <IconArrowRight className="w-3.5 h-3.5" />
+      </a>
+    </nav>
+  </div>
+);
+
 const Nav = () => {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -73,9 +98,9 @@ const Nav = () => {
         </div>
       </div>
 
-      {AnimatePresence && (
-        <AnimatePresence>
-          {open && (
+      {open && (
+        AnimatePresence && m ? (
+          <AnimatePresence>
             <m.div
               key="mobile-menu"
               initial={{ opacity: 0, y: -8 }}
@@ -84,31 +109,14 @@ const Nav = () => {
               transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
               className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md"
             >
-              <div className="px-5 sm:px-8 py-4">
-                <nav className="flex flex-col" aria-label="Mobile">
-                  {NAV_LINKS.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      onClick={handleClick}
-                      className="py-3 text-[15px] font-medium text-navy border-b border-line/70 last:border-0"
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                  <a
-                    href="#contact"
-                    onClick={handleClick}
-                    className="mt-4 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-md bg-navy text-white text-[14px] font-semibold"
-                  >
-                    Request Pilot Access
-                    <IconArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </nav>
-              </div>
+              <MobileMenuContents handleClick={handleClick} />
             </m.div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>
+        ) : (
+          <div className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md">
+            <MobileMenuContents handleClick={handleClick} />
+          </div>
+        )
       )}
     </header>
   );
